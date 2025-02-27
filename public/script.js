@@ -55,4 +55,21 @@ function updateCartUI() {
 function openSettings() {
     alert("Settings panel coming soon!");
 }
-fetch("https://revivecart.vercel.app/api/products")  // Replace with your Vercel domain
+fetch("https://revivecart.vercel.app/api/products") // Ensure this URL is correct
+  .then(response => response.json())
+  .then(products => {
+    const container = document.getElementById("products-container");
+    container.innerHTML = ""; // Clear previous content
+    products.forEach(product => {
+      const card = document.createElement("div");
+      card.classList.add("product-card");
+      card.innerHTML = `
+        <h2>${product.name}</h2>
+        <p>Expiry Date: ${product.expiryDate}</p>
+        <p>Price: <s>₹${product.price}</s> → <strong>₹${product.discountedPrice}</strong></p>
+        <p>Discount: ${product.discount}%</p>
+      `;
+      container.appendChild(card);
+    });
+  })
+  .catch(error => console.error("Error fetching products:", error));
