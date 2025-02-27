@@ -55,3 +55,4 @@ function updateCartUI() {
 function openSettings() {
     alert("Settings panel coming soon!");
 }
+fetch("https://revivecart.vercel.app/api/products")  // Replace with your Vercel domain
