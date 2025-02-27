@@ -53,7 +53,7 @@ header {
     padding: 15px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 220px;
+    width: 200px;
     text-align: center;
 }
 
@@ -102,10 +102,6 @@ header {
 .cart-sidebar ul {
     list-style: none;
     padding: 0;
-}
-
-.cart-sidebar li {
-    padding: 5px 0;
 }
 
 /* Footer */
