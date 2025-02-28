@@ -1,19 +1,29 @@
 const express = require("express");
-const cors = require("cors");
+const path = require("path");
+
 const app = express();
+const PORT = process.env.PORT || 5000;
 
-app.use(cors());
-app.use(express.static("public"));
+// Serve static files (Frontend)
+app.use(express.static(path.join(__dirname, "public")));
 
-const products = [
-    { name: "Milk", expiryDate: "2025-03-10", price: 50, discount: 10, discountedPrice: 45 },
-    { name: "Rice", expiryDate: "2025-06-15", price: 100, discount: 15, discountedPrice: 85 },
-    { name: "Medicines", expiryDate: "2025-12-31", price: 200, discount: 20, discountedPrice: 160 },
-    { name: "Bread", expiryDate: "2025-02-28", price: 30, discount: 5, discountedPrice: 28 }
-];
-
+// Products API
 app.get("/api/products", (req, res) => {
+    const products = [
+        { name: "Milk", expiryDate: "2025-06-01", price: 50, image: "milk.jpg" },
+        { name: "Rice", expiryDate: "2025-08-15", price: 100, image: "rice.jpg" },
+        { name: "Medicines", expiryDate: "2026-01-10", price: 200, image: "medicines.jpg" },
+        { name: "Bread", expiryDate: "2025-03-25", price: 40, image: "bread.jpg" },
+    ];
     res.json(products);
 });
 
-app.listen(5000, () => console.log("Server running on port 5000"));
+// Serve index.html for all routes
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "public", "index.html"));
+});
+
+// Start Server
+app.listen(PORT, () => {
+    console.log(`✅ Server running on port ${PORT}`);
+});
