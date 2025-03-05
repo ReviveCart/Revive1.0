@@ -12,7 +12,16 @@
     <!-- Header -->
     <header>
         <h1>ReviveCart</h1>
-        <div class="settings-icon" onclick="openSettings()">⚙</div>
+        
+        <!-- Settings Dropdown -->
+        <div class="settings-container">
+            <div class="settings-icon" onclick="toggleSettings()">⚙</div>
+            <div class="settings-dropdown" id="settingsDropdown">
+                <button onclick="goHome()">Home</button>
+                <button onclick="goToSellerPage()">Seller</button>
+                <button onclick="showContactDetails()">Contact Details</button>
+            </div>
+        </div>
     </header>
 
     <!-- Product Container -->

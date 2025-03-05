@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReviveCart Seller</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>ReviveCart - Seller Dashboard</h1>
+    </header>
+    
+    <div class="container">
+        <h2>Upload Your Products</h2>
+        <form id="sellerForm">
+            <input type="text" id="productName" placeholder="Product Name" required>
+            <input type="number" id="productPrice" placeholder="Price" required>
+            <input type="file" id="productImage" accept="image/*">
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("sellerForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            alert("Product submitted! (Database connection coming soon)");
+        });
+    </script>
+</body>
+</html>

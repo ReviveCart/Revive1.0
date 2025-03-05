@@ -1,14 +1,13 @@
 document.addEventListener("DOMContentLoaded", () => {
+    // Fetch and display products
     fetch("/api/products")
         .then(response => response.json())
         .then(products => {
             const productList = document.querySelector(".product-list");
             productList.innerHTML = "";
-
             products.forEach(product => {
                 const productCard = document.createElement("div");
                 productCard.classList.add("product-card");
-
                 productCard.innerHTML = `
                     <img src="/images/${product.name.toLowerCase()}.jpg" alt="${product.name}">
                     <h3>${product.name}</h3>
@@ -18,13 +17,13 @@ document.addEventListener("DOMContentLoaded", () => {
                     <p>Final Price: <b>₹${product.discountedPrice}</b></p>
                     <button onclick="addToCart('${product.name}', ${product.discountedPrice})">Add to Cart</button>
                 `;
-
                 productList.appendChild(productCard);
             });
         })
         .catch(error => console.error("Error fetching products:", error));
 });
 
+// Cart functionality
 let cart = [];
 
 function addToCart(name, price) {
@@ -50,6 +49,27 @@ function updateCartUI() {
     });
 }
 
-function openSettings() {
-    alert("Settings panel coming soon!");
+// Settings Dropdown functionality
+function toggleSettings() {
+    document.getElementById("settingsDropdown").classList.toggle("show");
 }
+
+function goHome() {
+    window.location.href = "/";
+}
+
+function goToSellerPage() {
+    window.location.href = "/seller.html";
+}
+
+function showContactDetails() {
+    alert("Contact: support@revivecart.com\nPhone: +91 98765 43210");
+}
+
+// Close settings dropdown when clicking outside
+document.addEventListener("click", function(e) {
+    const settingsContainer = document.querySelector(".settings-container");
+    if (settingsContainer && !settingsContainer.contains(e.target)) {
+        document.getElementById("settingsDropdown").classList.remove("show");
+    }
+});

@@ -23,12 +23,46 @@ header {
     background: #333;
     color: white;
     font-size: 24px;
+    position: relative;
+}
+
+/* Settings Container */
+.settings-container {
+    position: relative;
 }
 
 /* Settings Icon */
 .settings-icon {
     font-size: 24px;
     cursor: pointer;
+}
+
+/* Settings Dropdown */
+.settings-dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 40px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    z-index: 10;
+}
+
+.settings-dropdown button {
+    display: block;
+    width: 100%;
+    background: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    text-align: left;
+}
+
+.settings-dropdown button:hover {
+    background: #f0f0f0;
 }
 
 /* Product List */
