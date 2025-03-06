@@ -3,24 +3,26 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(response => response.json())
         .then(products => {
             const productList = document.querySelector(".product-list");
-            productList.innerHTML = "";
+            if (productList) {
+                productList.innerHTML = "";
 
-            products.forEach(product => {
-                const productCard = document.createElement("div");
-                productCard.classList.add("product-card");
+                products.forEach(product => {
+                    const productCard = document.createElement("div");
+                    productCard.classList.add("product-card");
 
-                productCard.innerHTML = `
-                    <img src="/images/${product.name.toLowerCase()}.jpg" alt="${product.name}">
-                    <h3>${product.name}</h3>
-                    <p>Expiry: ${product.expiryDate}</p>
-                    <p>Price: ₹${product.price}</p>
-                    <p class="discount">Discount: ${product.discount}%</p>
-                    <p>Final Price: <b>₹${product.discountedPrice}</b></p>
-                    <button onclick="addToCart('${product.name}', ${product.discountedPrice})">Add to Cart</button>
-                `;
+                    productCard.innerHTML = `
+                        <img src="/images/${product.name.toLowerCase()}.jpg" alt="${product.name}">
+                        <h3>${product.name}</h3>
+                        <p>Expiry: ${product.expiryDate}</p>
+                        <p>Price: ₹${product.price}</p>
+                        <p class="discount">Discount: ${product.discount}%</p>
+                        <p>Final Price: <b>₹${product.discountedPrice}</b></p>
+                        <button onclick="addToCart('${product.name}', ${product.discountedPrice})">Add to Cart</button>
+                    `;
 
-                productList.appendChild(productCard);
-            });
+                    productList.appendChild(productCard);
+                });
+            }
         })
         .catch(error => console.error("Error fetching products:", error));
 });
@@ -44,8 +46,10 @@ function closeCart() {
 function updateCartUI() {
     const cartItems = document.getElementById("cartItems");
     const totalAmount = document.getElementById("totalAmount");
-    cartItems.innerHTML = "";
+    
+    if (!cartItems || !totalAmount) return; // Prevent errors if elements are missing
 
+    cartItems.innerHTML = "";
     let total = 0;
 
     cart.forEach(item => {
@@ -74,24 +78,30 @@ function buyNow() {
 const settingsButton = document.getElementById("settingsButton");
 const settingsDropdown = document.getElementById("settingsDropdown");
 
-settingsButton.addEventListener("click", (event) => {
-    event.stopPropagation();
-    settingsDropdown.classList.toggle("show");
-});
+if (settingsButton && settingsDropdown) {
+    settingsButton.addEventListener("click", (event) => {
+        event.stopPropagation();
+        settingsDropdown.classList.toggle("show");
+    });
 
-document.addEventListener("click", (event) => {
-    if (!settingsButton.contains(event.target) && !settingsDropdown.contains(event.target)) {
-        settingsDropdown.classList.remove("show");
-    }
-});
+    document.addEventListener("click", (event) => {
+        if (!settingsButton.contains(event.target) && !settingsDropdown.contains(event.target)) {
+            settingsDropdown.classList.remove("show");
+        }
+    });
+}
 
 // Navigation Functions
 function goHome() {
-    window.location.href = "/";
+    window.location.href = "index.html";
+}
+
+function goToShop() {
+    window.location.href = "shop.html";
 }
 
 function goToSellerPage() {
-    window.location.href = "/seller.html";
+    window.location.href = "seller.html";
 }
 
 function showContactDetails() {
