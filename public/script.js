@@ -43,12 +43,31 @@ function closeCart() {
 
 function updateCartUI() {
     const cartItems = document.getElementById("cartItems");
+    const totalAmount = document.getElementById("totalAmount");
     cartItems.innerHTML = "";
+
+    let total = 0;
+
     cart.forEach(item => {
         const li = document.createElement("li");
         li.textContent = `${item.name} - ₹${item.price}`;
         cartItems.appendChild(li);
+        total += item.price;
     });
+
+    totalAmount.textContent = `Total: ₹${total}`;
+}
+
+// Function for Buy Now button
+function buyNow() {
+    if (cart.length === 0) {
+        alert("Your cart is empty!");
+        return;
+    }
+
+    alert("Proceeding to checkout...");
+    cart = []; // Clear cart after purchase
+    updateCartUI(); // Update UI
 }
 
 // Settings Functionality
