@@ -197,6 +197,14 @@ header {
     list-style: none;
     padding: 0;
 }
+.remove-btn {
+    background: red;
+    color: white;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+}
 
 #totalAmount {
     font-size: 16px;

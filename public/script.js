@@ -34,6 +34,12 @@ function addToCart(name, price) {
     cart.push({ name, price });
     updateCartUI();
 }
+function removeFromCart(index) {
+    console.log(`Removing item at index ${index}`);
+
+    cart.splice(index, 1); // Remove item from cart
+    updateCartUI();
+}
 
 function toggleCart() {
     document.getElementById("cartSidebar").classList.toggle("open");
@@ -93,7 +99,7 @@ if (settingsButton && settingsDropdown) {
 
 // Navigation Functions
 function goHome() {
-    window.location.href = "index.html";
+    window.location.href = "home.html";
 }
 
 function goToShop() {
