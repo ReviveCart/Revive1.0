@@ -103,7 +103,7 @@ function goHome() {
 }
 
 function goToShop() {
-    window.location.href = "shop.html";
+    window.location.href = "index.html";
 }
 
 function goToSellerPage() {
