@@ -34,11 +34,27 @@ function addToCart(name, price) {
     cart.push({ name, price });
     updateCartUI();
 }
+
+// Function to remove a specific item from cart
 function removeFromCart(index) {
     console.log(`Removing item at index ${index}`);
-
-    cart.splice(index, 1); // Remove item from cart
+    cart.splice(index, 1); // Remove item at given index
     updateCartUI();
+}
+
+// Function to cancel the entire cart
+function cancelCart() {
+    if (cart.length === 0) {
+        alert("Your cart is already empty!");
+        return;
+    }
+
+    const confirmCancel = confirm("Are you sure you want to cancel the entire cart?");
+    if (confirmCancel) {
+        cart = []; // Clear cart
+        updateCartUI();
+        alert("Your cart has been canceled.");
+    }
 }
 
 function toggleCart() {
@@ -49,18 +65,22 @@ function closeCart() {
     document.getElementById("cartSidebar").classList.remove("open");
 }
 
+// Function to update the cart UI
 function updateCartUI() {
     const cartItems = document.getElementById("cartItems");
     const totalAmount = document.getElementById("totalAmount");
-    
+
     if (!cartItems || !totalAmount) return; // Prevent errors if elements are missing
 
     cartItems.innerHTML = "";
     let total = 0;
 
-    cart.forEach(item => {
+    cart.forEach((item, index) => {
         const li = document.createElement("li");
-        li.textContent = `${item.name} - ₹${item.price}`;
+        li.innerHTML = `
+            ${item.name} - ₹${item.price} 
+            <button onclick="removeFromCart(${index})">❌ Remove</button>
+        `;
         cartItems.appendChild(li);
         total += item.price;
     });
