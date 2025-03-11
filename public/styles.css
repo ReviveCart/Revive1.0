@@ -25,6 +25,17 @@ header {
     font-size: 24px;
 }
 
+/* Logo */
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo-container img {
+    height: 40px;
+    margin-right: 10px;
+}
+
 /* Settings Container */
 .settings-container {
     position: relative;
@@ -77,18 +88,18 @@ header {
 /* Hero Section (Home Page) */
 .hero {
     text-align: center;
-    padding: 50px 20px;
-    background: #ff6600;
+    padding: 60px 20px;
+    background: linear-gradient(135deg, #ff6600, #ff8533);
     color: white;
 }
 
 .hero h2 {
-    font-size: 32px;
+    font-size: 36px;
     margin-bottom: 10px;
 }
 
 .hero p {
-    font-size: 18px;
+    font-size: 20px;
     margin-bottom: 20px;
 }
 
@@ -96,8 +107,8 @@ header {
     background: white;
     color: #ff6600;
     border: none;
-    padding: 10px 20px;
-    font-size: 18px;
+    padding: 12px 24px;
+    font-size: 20px;
     cursor: pointer;
     border-radius: 5px;
 }
@@ -110,19 +121,22 @@ header {
 .about-us, .mission {
     padding: 40px 20px;
     text-align: center;
-    background: white;
+    background: #fff;
     margin: 20px;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 }
 
 .about-us h2, .mission h2 {
     font-size: 28px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
+    color: #333;
 }
 
 .about-us p, .mission p {
     font-size: 18px;
+    line-height: 1.5;
+    color: #555;
 }
 
 /* Product List */
@@ -146,9 +160,14 @@ header {
     background: white;
     padding: 15px;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 200px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    width: 220px;
     text-align: center;
+    transition: transform 0.3s;
+}
+
+.product-card:hover {
+    transform: scale(1.05);
 }
 
 .product-card img {
@@ -166,7 +185,7 @@ header {
     background: #ff6600;
     color: white;
     border: none;
-    padding: 10px;
+    padding: 12px;
     font-size: 18px;
     border-radius: 5px;
     cursor: pointer;
@@ -197,6 +216,7 @@ header {
     list-style: none;
     padding: 0;
 }
+
 .remove-btn {
     background: red;
     color: white;
