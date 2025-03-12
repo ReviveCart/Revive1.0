@@ -34,6 +34,7 @@ header {
 .logo-container img {
     height: 40px;
     margin-right: 10px;
+    display: inline-block;
 }
 
 /* Settings Container */
@@ -89,7 +90,7 @@ header {
 .hero {
     text-align: center;
     padding: 60px 20px;
-    background: linear-gradient(135deg, #ff6600, #ff8533);
+    background: linear-gradient(135deg, #e7c3aa, #f4c7aa);
     color: white;
 }
 
