@@ -65,7 +65,7 @@ app.post("/api/products", async (req, res) => {
 
 // Serve index.html for all routes
 app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "public", "index.html"));
+    res.sendFile(path.join(__dirname, "public", "home.html"));
 });
 
 // Start Server
