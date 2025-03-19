@@ -9,6 +9,14 @@
 <body>
     <header>
         <h1>ReviveCart - Seller Dashboard</h1>
+        <div class="settings-container">
+            <button id="settingsButton">⚙</button>
+            <div class="settings-dropdown" id="settingsDropdown">
+                <button onclick="goToShop()">Shop</button>
+                <button onclick="goHome()">Home</button>
+                <button onclick="showContactDetails()">Contact Details</button>
+            </div>
+        </div>
     </header>
     
     <div class="container">
@@ -16,15 +24,87 @@
         <form id="sellerForm">
             <input type="text" id="productName" placeholder="Product Name" required>
             <input type="number" id="productPrice" placeholder="Price" required>
+            <input type="number" id="productDiscount" placeholder="Discount %" required>
+            <input type="date" id="expiryDate" required>
             <input type="file" id="productImage" accept="image/*">
             <button type="submit">Submit</button>
         </form>
+        
+        <div id="message" class="message"></div>
     </div>
 
     <script>
-        document.getElementById("sellerForm").addEventListener("submit", function(event) {
+        // Settings functionality
+        const settingsButton = document.getElementById("settingsButton");
+        const settingsDropdown = document.getElementById("settingsDropdown");
+
+        if (settingsButton && settingsDropdown) {
+            settingsButton.addEventListener("click", (event) => {
+                event.stopPropagation();
+                settingsDropdown.classList.toggle("show");
+            });
+
+            document.addEventListener("click", (event) => {
+                if (!settingsButton.contains(event.target) && !settingsDropdown.contains(event.target)) {
+                    settingsDropdown.classList.remove("show");
+                }
+            });
+        }
+
+        // Navigation functions
+        function goHome() {
+            window.location.href = "home.html";
+        }
+
+        function goToShop() {
+            window.location.href = "index.html";
+        }
+
+        function showContactDetails() {
+            alert("Contact: support@revivecart.com\nPhone: +91 98765 43210");
+        }
+
+        // Form submission
+        document.getElementById("sellerForm").addEventListener("submit", async function(event) {
             event.preventDefault();
-            alert("Product submitted! (Database connection coming soon)");
+            
+            const productName = document.getElementById("productName").value;
+            const productPrice = document.getElementById("productPrice").value;
+            const productDiscount = document.getElementById("productDiscount").value;
+            const expiryDate = document.getElementById("expiryDate").value;
+            
+            // Create data object
+            const productData = {
+                name: productName,
+                price: productPrice,
+                discount: productDiscount,
+                expiryDate: expiryDate
+            };
+            
+            try {
+                // Send data to server
+                const response = await fetch('/api/products', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(productData)
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    document.getElementById("message").textContent = "Product added successfully!";
+                    document.getElementById("message").style.color = "green";
+                    document.getElementById("sellerForm").reset();
+                } else {
+                    document.getElementById("message").textContent = "Error: " + result.error;
+                    document.getElementById("message").style.color = "red";
+                }
+            } catch (error) {
+                document.getElementById("message").textContent = "Error: " + error.message;
+                document.getElementById("message").style.color = "red";
+            }
         });
     </script>
 </body>

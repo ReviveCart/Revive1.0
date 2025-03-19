@@ -354,7 +354,39 @@ Copy code
 .buy-btn:hover {
     background: #cc5500;
 }
+.message {
+    margin-top: 20px;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+}
 
+/* Form styling improvements */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+form input, form button {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+form button {
+    background: #ff6600;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+form button:hover {
+    background: #cc5500;
+}
 /* ===== Footer ===== */
 footer {
     text-align: center;

@@ -10,8 +10,13 @@ document.addEventListener("DOMContentLoaded", () => {
                     const productCard = document.createElement("div");
                     productCard.classList.add("product-card");
 
+                    // Use the product image if available, otherwise use a default image path
+                    const imagePath = product.image 
+                        ? `/images/${product.image}`
+                        : `/images/${product.name.toLowerCase()}.jpg`;
+
                     productCard.innerHTML = `
-                        <img src="/images/${product.name.toLowerCase()}.jpg" alt="${product.name}">
+                        <img src="${imagePath}" alt="${product.name}" onerror="this.src='/images/default.jpg'">
                         <h3>${product.name}</h3>
                         <p>Expiry: ${product.expiryDate}</p>
                         <p>Price: ₹${product.price}</p>
@@ -82,10 +87,10 @@ function updateCartUI() {
             <button onclick="removeFromCart(${index})">❌ Remove</button>
         `;
         cartItems.appendChild(li);
-        total += item.price;
+        total += parseFloat(item.price);
     });
 
-    totalAmount.textContent = `Total: ₹${total}`;
+    totalAmount.textContent = `Total: ₹${total.toFixed(2)}`;
 }
 
 // Function for Buy Now button
