@@ -1,66 +1,32 @@
 const express = require("express");
 const path = require("path");
-const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// MongoDB connection
-mongoose.connect('your_mongodb_connection_string', { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => console.log("MongoDB connected successfully"))
-    .catch(err => console.error("MongoDB connection error:", err));
-
-// Middleware
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+// Serve static files (Frontend)
 app.use(express.static(path.join(__dirname, "public")));
-
-// Product Schema
-const productSchema = new mongoose.Schema({
-    name: { type: String, required: true },
-    expiryDate: { type: String, required: true },
-    price: { type: Number, required: true },
-    discount: { type: Number, required: true },
-    discountedPrice: { type: Number, required: true },
-});
-
-const Product = mongoose.model("Product", productSchema);
 
 // Function to calculate discount
 function calculateDiscountedPrice(price, discount) {
     return (price - (price * discount) / 100).toFixed(2);
 }
 
-// Products API to fetch products
-app.get("/api/products", async (req, res) => {
-    try {
-        const products = await Product.find();
-        res.json(products);
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-});
+// Products API with discount logic
+app.get("/api/products", (req, res) => {
+    const products = [
+        { name: "Milk", expiryDate: "2025-06-01", price: 50, discount: 10 },
+        { name: "Rice", expiryDate: "2025-08-15", price: 100, discount: 15 },
+        { name: "Medicines", expiryDate: "2026-01-10", price: 200, discount: 20 },
+        { name: "Bread", expiryDate: "2025-03-25", price: 40, discount: 5 },
+    ];
 
-// API to add a new product
-app.post("/api/products", async (req, res) => {
-    const { name, expiryDate, price, discount } = req.body;
-    const discountedPrice = calculateDiscountedPrice(price, discount);
-
-    const product = new Product({
-        name,
-        expiryDate,
-        price,
-        discount,
-        discountedPrice,
+    // Add discounted price to each product
+    products.forEach(product => {
+        product.discountedPrice = calculateDiscountedPrice(product.price, product.discount);
     });
 
-    try {
-        const savedProduct = await product.save();
-        res.status(201).json(savedProduct);
-    } catch (error) {
-        res.status(400).json({ message: error.message });
-    }
+    res.json(products);
 });
 
 // Serve index.html for all routes
