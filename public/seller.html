@@ -21,12 +21,12 @@
     
     <div class="container">
         <h2>Upload Your Products</h2>
-        <form id="sellerForm">
+        <form id="sellerForm" enctype="multipart/form-data">
             <input type="text" id="productName" placeholder="Product Name" required>
             <input type="number" id="productPrice" placeholder="Price" required>
             <input type="number" id="productDiscount" placeholder="Discount %" required>
             <input type="date" id="expiryDate" required>
-            <input type="file" id="productImage" accept="image/*">
+            <input type="file" id="productImage" accept="image/*" required>
             <button type="submit">Submit</button>
         </form>
         
@@ -67,42 +67,39 @@
         // Form submission
         document.getElementById("sellerForm").addEventListener("submit", async function(event) {
             event.preventDefault();
-            
+
             const productName = document.getElementById("productName").value;
             const productPrice = document.getElementById("productPrice").value;
             const productDiscount = document.getElementById("productDiscount").value;
             const expiryDate = document.getElementById("expiryDate").value;
-            
-            // Create data object
-            const productData = {
-                name: productName,
-                price: productPrice,
-                discount: productDiscount,
-                expiryDate: expiryDate
-            };
-            
+            const productImage = document.getElementById("productImage").files[0];
+
+            const formData = new FormData();
+            formData.append("name", productName);
+            formData.append("price", productPrice);
+            formData.append("discount", productDiscount);
+            formData.append("expiryDate", expiryDate);
+            formData.append("image", productImage); // Add image file
+
             try {
                 // Send data to server
                 const response = await fetch('/api/products', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(productData)
+                    body: formData
                 });
-                
+
                 const result = await response.json();
-                
+
                 if (response.ok) {
-                    document.getElementById("message").textContent = "Product added successfully!";
+                    document.getElementById("message").textContent = "✅ Product added successfully!";
                     document.getElementById("message").style.color = "green";
                     document.getElementById("sellerForm").reset();
                 } else {
-                    document.getElementById("message").textContent = "Error: " + result.error;
+                    document.getElementById("message").textContent = "❌ Error: " + result.error;
                     document.getElementById("message").style.color = "red";
                 }
             } catch (error) {
-                document.getElementById("message").textContent = "Error: " + error.message;
+                document.getElementById("message").textContent = "❌ Error: " + error.message;
                 document.getElementById("message").style.color = "red";
             }
         });
