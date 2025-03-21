@@ -87,4 +87,3 @@ app.listen(PORT, () => {
     console.log(`✅ Server running on port ${PORT}`);
     initializeDB(); // Initialize database with demo products
 });
-node
